@@ -1,6 +1,6 @@
 ﻿# QA Automation Portfolio
 
-Playwright and TypeScript test automation — built as part of a structured 
+Playwright and TypeScript test automation - built as part of a structured 
 transition from manual/mobile QA into automation engineering.
 
 Coming from 3.5 years of hands-on testing at Infosys (mobile apps, 
@@ -14,7 +14,7 @@ building week by week as I move into automation.
 
 ## What's here
 
-### automationexercise.com — E-commerce test suite
+### automationexercise.com - E-commerce test suite
 End-to-end tests covering the core user journeys on a retail demo site:
 - Signup and login flows
 - Product search and navigation  
@@ -22,7 +22,7 @@ End-to-end tests covering the core user journeys on a retail demo site:
 - Form validation and edge cases
 
 ### google-site.spec.ts
-Basic title assertion — first test written, kept as a reference point.
+Basic title assertion - first test written, kept as a reference point.
 
 ## Running the tests
 
@@ -45,7 +45,7 @@ Tests run automatically on every push via GitHub Actions.
 The pipeline runs the core test suite and uploads the HTML report as an artifact.
 
 ## Background
-3.5 years at Infosys as a Systems Engineer/QA Test Engineer — manual testing, 
+3.5 years at Infosys as a Systems Engineer/QA Test Engineer - manual testing, Automation script execution 
 mobile app testing (iOS/Android), API validation with Postman, Agile delivery.
 MSc Applied Cybersecurity, Queen's University Belfast (2025).
 Currently building toward ISTQB Foundation and CompTIA Security+.
