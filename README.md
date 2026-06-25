@@ -70,7 +70,7 @@ throughput, and error rate under load.
 
 google-site.spec.ts
 
-Basic title assertion — first test written, kept as a reference point.
+Basic title assertion - first test written, kept as a reference point.
 
 Running the tests
 
