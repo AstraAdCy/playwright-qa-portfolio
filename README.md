@@ -14,12 +14,12 @@ into automation, BDD, and broader QA engineering practices.
 
 Stack
 
-Playwright with TypeScript
-Cucumber (BDD / Gherkin)
-k6 (performance testing)
-axe-core (accessibility testing)
-GitHub Actions (CI/CD)
-Node.js
+-Playwright with TypeScript
+-Cucumber (BDD / Gherkin)
+-k6 (performance testing)
+-axe-core (accessibility testing)
+-GitHub Actions (CI/CD)
+-Node.js
 
 
 What's here
