@@ -1,5 +1,10 @@
 ﻿QA Automation Portfolio
 
+![Playwright](https://img.shields.io/badge/Playwright-Test_Automation-2EAD33?logo=playwright&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)
+![Cucumber](https://img.shields.io/badge/BDD-Cucumber-23D96C?logo=cucumber&logoColor=white)
+![GitHub%20Actions](https://img.shields.io/badge/CI-GitHub_Actions-2088FF?logo=githubactions&logoColor=white)
+
 Playwright and TypeScript test automation framework to built it as part of a structured
 automation engineering.
 
