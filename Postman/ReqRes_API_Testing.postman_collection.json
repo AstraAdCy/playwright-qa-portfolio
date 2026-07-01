@@ -1,0 +1,144 @@
+{
+  "info": {
+    "_postman_id": "df23e5c3-181e-4774-b4fa-f34037c62cb9",
+    "name": "ReqRes API Testing",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "56258714",
+    "_collection_link": "https://go.postman.co/collection/56258714-df23e5c3-181e-4774-b4fa-f34037c62cb9?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Get users",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Page is 2\", function () {\r",
+              "    const response = pm.response.json();\r",
+              "    pm.expect(response.page).to.eql(2);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Per page is 6\", function () {\r",
+              "    const response = pm.response.json();\r",
+              "    pm.expect(response.per_page).to.eql(6);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Total pages is 2\", function () {\r",
+              "    const response = pm.response.json();\r",
+              "    pm.expect(response.total_pages).to.eql(2);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"First user contains an ID\", function () {\r",
+              "    const response = pm.response.json();\r",
+              "    pm.expect(response.data[0].id).to.exist;\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "{{apiKey}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/users?page=2",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "users"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "2"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create users",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 201\", function () {\r",
+              "    pm.response.to.have.status(201);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Name is Astra\", function () {\r",
+              "    const response = pm.response.json();\r",
+              "    pm.expect(response.name).to.eql(\"Astra\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Job is QA Engineer\", function () {\r",
+              "    const response = pm.response.json();\r",
+              "    pm.expect(response.job).to.eql(\"QA Engineer\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response contains ID\", function () {\r",
+              "    const response = pm.response.json();\r",
+              "    pm.expect(response.id).to.exist;\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response contains createdAt timestamp\", function () {\r",
+              "    const response = pm.response.json();\r",
+              "    pm.expect(response.createdAt).to.exist;\r",
+              "});\r",
+              "const response = pm.response.json();\r",
+              "pm.environment.set(\"userId\", response.id);"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "{{apiKey}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"name\": \"Astra\",\r\n    \"job\": \"QA Engineer\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/users",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "users"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
