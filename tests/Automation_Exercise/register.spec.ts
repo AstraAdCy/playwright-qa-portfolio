@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('Verify user registration', async ({ page }) => {
+test('@regression Verify user registration', async ({ page }) => {
 
   await page.goto('https://automationexercise.com');
 
