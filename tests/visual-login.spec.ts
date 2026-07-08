@@ -4,7 +4,9 @@ test('homepage visual comparison', async ({ page }) => {
 
   await page.goto('https://automationexercise.com');
 
-  await page.getByRole('button', {
+await page.waitForLoadState('networkidle');
+
+await page.getByRole('button', {
   name: 'Consent'
 }).click();
 

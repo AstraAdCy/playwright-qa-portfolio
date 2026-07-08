@@ -4,6 +4,8 @@ test('Verify user registration', async ({ page }) => {
 
   await page.goto('https://automationexercise.com');
 
+await page.waitForLoadState('networkidle');
+
   // Accept consent popup
   await page.getByRole('button', { name: 'Consent' }).click();
 

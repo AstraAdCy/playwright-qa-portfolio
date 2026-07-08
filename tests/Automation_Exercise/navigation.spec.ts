@@ -5,8 +5,11 @@ test('Verify navigation between pages', async ({ page }) => {
   // Open website
   await page.goto('https://automationexercise.com');
 
-  // Accept consent popup
-  await page.getByRole('button', { name: 'Consent' }).click();
+await page.waitForLoadState('networkidle');
+
+await page.getByRole('button', {
+  name: 'Consent'
+}).click();
 
   // Navigate to Products
   await page.getByRole('link', { name: 'Products' }).click();

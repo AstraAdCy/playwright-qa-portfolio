@@ -8,9 +8,11 @@ test('Verify login on iPhone 12', async ({ page }) => {
 
   await page.goto('https://automationexercise.com');
 
-  await page.getByRole('button', {
-    name: 'Consent'
-  }).click();
+await page.waitForLoadState('networkidle');
+
+await page.getByRole('button', {
+  name: 'Consent'
+}).click();
 
   await page.getByRole('link', {
     name: 'Signup / Login'

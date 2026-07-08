@@ -4,9 +4,11 @@ test('Verify add to cart', async ({ page }) => {
 
   await page.goto('https://automationexercise.com');
 
-  await page.getByRole('button', {
-    name: 'Consent'
-  }).click();
+await page.waitForLoadState('networkidle');
+
+await page.getByRole('button', {
+  name: 'Consent'
+}).click();
 
   await page.getByRole('link', {
     name: 'Products'
