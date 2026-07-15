@@ -1,114 +1,174 @@
-﻿QA Automation Portfolio
+﻿# QA Automation Portfolio
 
 ![Playwright](https://img.shields.io/badge/Playwright-Test_Automation-2EAD33?logo=playwright&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)
 ![Cucumber](https://img.shields.io/badge/BDD-Cucumber-23D96C?logo=cucumber&logoColor=white)
-![GitHub%20Actions](https://img.shields.io/badge/CI-GitHub_Actions-2088FF?logo=githubactions&logoColor=white)
+![GitHub Actions](https://img.shields.io/badge/CI-GitHub_Actions-2088FF?logo=githubactions&logoColor=white)
+![SonarCloud](https://img.shields.io/badge/SonarCloud-SAST-F3702A?logo=sonarcloud&logoColor=white)
 
-Playwright and TypeScript test automation framework to built it as part of a structured
-automation engineering.
+A Playwright and TypeScript automation framework built as part of a structured move from manual QA into automation engineering. I came into this with 3.5 years of hands-on testing experience at Infosys across mobile apps, retail e-commerce, API validation, and Agile delivery - and I have been building this framework week by week to develop the automation depth that complements that background.
 
-Coming from 3.5 years of hands-on testing at Infosys (mobile apps, retail e-commerce,
-Agile delivery), this portfolio documents what I've built week by week while moving
-into automation, BDD, and broader QA engineering practices.
-
-Stack
-
--Playwright with TypeScript
--Cucumber (BDD / Gherkin)
--k6 (performance testing)
--axe-core (accessibility testing)
--GitHub Actions (CI/CD)
--Node.js
+The commits tell the story better than a summary would, but the short version is: this started as a basic Playwright setup and has grown into something covering UI automation, API testing, BDD, CI/CD, static analysis, accessibility, performance, and visual regression - all in one codebase.
 
 
-What's here
+# Tech Stack
 
-Page Object Model
-
-Locators and reusable actions separated from test logic, under Pages/:
+ToolPurposePlaywright (TypeScript)Core UI and API automationCucumberBDD / Gherkin scenariosPostmanAPI collection testingGitHub ActionsCI/CD pipelineSonarQube CloudSAST and code qualityJSON ServerLocal mock REST APIsFaker.jsDynamic test data generationaxe-coreAccessibility testingk6Performance and load testingSQL (MySQL)Backend data verification
 
 
-LoginPage.ts, HomePage.ts, ProductPage.ts
-
+# What's in here
 
 UI Automation - automationexercise.com
 
-End-to-end tests covering core user journeys on a retail demo site
-(tests/Automation_Exercise/):
+End-to-end tests covering realistic e-commerce user journeys, structured around the Page Object Model so locators and actions live separately from test logic.
+
+# Covered flows:
 
 
-Signup, login, and invalid login handling
-Product search and navigation
-Add to cart
-Mobile viewport testing (iPhone 12 emulation)
-
-
-BDD / Gherkin
-
-Feature files and step definitions under features/, covering login, product
-search, and add-to-cart scenarios. Includes a shared common.steps.ts for steps
-reused across multiple features, and a custom World/hooks setup that manages the
-Playwright browser lifecycle for each scenario.
-
-
-Note: a couple of scenarios are currently flaky due to third-party ad overlays
-intercepting clicks on the live demo site, and occasional site instability after
-login - documented inline in the step definitions rather than hidden.
+- User registration and login
+- Invalid login and error handling
+- Product search and navigation
+- Add to cart
+- Mobile viewport testing (iPhone 12 emulation)
+- Cross-browser execution (Chromium, Firefox, WebKit)
 
 
 
-Accessibility Testing
+# API Testing
 
-Automated WCAG checks using axe-core (tests/Accessibility/), flagging issues like
-missing labels, colour contrast, and incorrect accessibility roles.
+Two approaches running alongside each other - Postman for collection-based testing and Playwright's request fixture for in-code API automation that sits in the same codebase as the UI tests.
 
-Visual Regression Testing
+# What's implemented:
 
-Baseline screenshot comparison across Chromium, Firefox, and WebKit
-(tests/visual-login.spec.ts).
 
-Performance Testing
+- GET and POST request validation
+- Status code and JSON response assertions
+- Authentication header verification
+- beforeEach() API setup to create test data before UI tests run
+- Request chaining - storing generated IDs as environment variables for reuse in subsequent calls
 
-Basic and API load tests using k6 (Performance/), covering response time,
-throughput, and error rate under load.
 
-google-site.spec.ts
 
-Basic title assertion - first test written, kept as a reference point.
+# Data-Driven Testing
+
+Login scenarios driven from a JSON fixture file rather than hardcoded in the test. One test function, multiple datasets, no duplication.
+
+
+- Valid and invalid login combinations
+- Randomised test data using Faker.js
+- JSON Server for local mock REST API independence
+
+
+
+# BDD / Gherkin
+
+Feature files and step definitions using Cucumber, covering login, product search, and add-to-cart scenarios. A custom World setup handles the Playwright browser lifecycle for each scenario.
+
+
+A couple of scenarios are currently flaky due to third-party ads intercepting clicks on the demo site - documented in the step definitions rather than quietly removed.
+
+
+
+
+# Accessibility Testing
+
+Automated WCAG compliance checks using axe-core across the application. Flags missing labels, colour contrast failures, and incorrect ARIA roles - the kind of issues that often get missed in manual testing.
+
+
+# Visual Regression Testing
+
+Baseline screenshot comparison across Chromium, Firefox, and WebKit. Catches unintended layout changes that functional tests wouldn't pick up.
+
+
+# Performance Testing
+
+Basic load testing using k6 - response time, throughput, and error rate under a 10 virtual user / 30-second load scenario. Foundation-level but practical.
+
+
+# CI/CD Pipeline
+
+GitHub Actions runs automatically on every push to main.
+
+# Pipeline stages:
+
+
+Checkout code
+Install dependencies (with npm cache)
+Install Playwright browsers (Chromium only for CI speed)
+Run smoke tests
+Upload HTML report as artifact
+SonarQube Cloud SAST scan
+
+
+Smoke tests in CI, full regression run locally. HTML report uploaded as an artifact so failures are always reviewable without re-running.
+
+
+# Static Code Analysis
+
+SonarQube Cloud integrated into the CI pipeline via GitHub Secrets and sonar-project.properties. Runs a SAST scan on every push and reports on code quality, potential vulnerabilities, and maintainability issues through the Quality Gate.
+
+
+# Test Organisation
+
+Tests are tagged so the right suite runs at the right time:
+
+bash# Smoke tests only (runs in CI on every push)
+npx playwright test --grep "@smoke"
+
+# Regression suite
+npx playwright test --grep "@regression"
+
+# Sanity checks
+npx playwright test --grep "@sanity"
+
+Parallel execution configured with workers: 4 in CI to keep pipeline time reasonable.
+
+
+# SQL - Backend Verification
+
+SQL queries written to validate backend data after UI and API test actions - the kind of checks that confirm data actually landed correctly in the database, not just that the UI showed the right thing.
+
+Operations covered:
+SELECT, INSERT, UPDATE, DELETE, INNER JOIN, LEFT JOIN, COUNT(), GROUP BY, HAVING
+
+Dialect awareness: MySQL (primary), SQL Server / T-SQL basics, PostgreSQL concepts
+
 
 Running the tests
 
-bash# Run all Playwright tests
+bash# Full Playwright suite
 npx playwright test
 
-# Run with browser visible
+# Smoke tests only
+npx playwright test --grep "@smoke"
+
+# Run headed (watch the browser)
 npx playwright test --headed
 
-# Run a specific suite
-npx playwright test tests/Automation_Exercise/
+# Specific suites
+npx playwright test tests/API/
 npx playwright test tests/Accessibility/
 
-# Run BDD scenarios
+# BDD scenarios
 npx cucumber-js
 
-# Run a k6 performance test
+# Performance test
 k6 run Performance/basic-load-test.js
 
-# View the last HTML report
+# View last HTML report
 npx playwright show-report
 
-CI/CD
 
-Core tests run automatically on every push via GitHub Actions, with the HTML report
-uploaded as an artifact.
+# AI-Assisted Testing
 
-Background
+Used GitHub Copilot throughout development for edge-case test suggestions and code review. Also explored Mabl, Testim, Functionize, and testRigor to understand where self-healing automation and AI-generated tests add genuine value — and where they introduce risk by masking real UI changes.
 
-3.5 years at Infosys as a Systems Engineer / QA Test Engineer - manual testing,
-automation script execution, mobile app testing (iOS/Android), API validation with
-Postman, Agile delivery.
 
-MSc Applied Cybersecurity, Queen's University Belfast (2025).
+# Background
 
-Currently working toward ISTQB Foundation and CompTIA Security+.
+Infosys - Systems Engineer / QA Test Engineer (3.5 years)
+Manual testing, mobile app testing (iOS and Android), API validation with Postman, SQL data checks, Selenium automation with Java, Agile delivery across bi-weekly release cycles.
+
+MSc Applied Cybersecurity - Queen's University Belfast (2025)
+
+Currently working toward ISTQB Foundation Level and CompTIA Security+.
